@@ -7,6 +7,9 @@
     <title>Is it working?</title>
 </head>
 <body>
-    
+    {% for mushroom in mushrooms %}
+        {{ mushrooms.name }}<br>
+        {{ mushrooms.description }}<br>
+    {% endfor %}
 </body>
 </html>

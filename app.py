@@ -16,14 +16,15 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
 @app.route("/")
-def test():
-    test = mongo.db.mushrooms.find()
-    return render_template("test.html", wtf=test)
+@app.route("/get_mushrooms")
+def get_mushrooms():
+    mushrooms = mongo.db.mushrooms.find()
+    return render_template("mushrooms.html", mushrooms=mushrooms) # second mushrooms is variable defined above, first mushrooms is what the render template will use?
 
 
 if __name__ == "__main__":
-    app.run(
-        host=os.environ.get("IP"),
-        port=int(os.environ.get("PORT")),
-        debug=True) #CHANGE TO FALSE BEFORE DEPLOYMENT
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
+            debug=True)
