@@ -18,13 +18,18 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/get_mushrooms")
-def get_mushrooms():
-    mushrooms = mongo.db.mushrooms.find()
-    return render_template("mushrooms.html", mushrooms=mushrooms) # second mushrooms is variable defined above, first mushrooms is what the render template will use?
+def home():
+    return render_template('mushrooms.html')
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
+
+
+"""
+def get_mushrooms():
+    mushrooms = mongo.db.mushrooms.find()
+    return render_template("mushrooms.html", mushrooms=mushrooms)
+"""

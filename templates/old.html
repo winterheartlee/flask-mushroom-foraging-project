@@ -1,0 +1,10 @@
+{% for mushroom in mushrooms %}
+        {{ mushrooms.name }}<br>
+        {{ mushrooms.description }}<br>
+    {% endfor %}
+
+
+@app.route("/get_mushrooms")
+def get_mushrooms():
+    mushrooms = mongo.db.mushrooms.find()
+    return render_template('mushrooms.html', mushrooms=mushrooms)
