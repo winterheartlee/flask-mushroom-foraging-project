@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <ul class="collapsible">
+        {% for mushroom in mushrooms %}
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">arrow_drop_down</i>
+                {{ mushroom.name }}
+            </div>
+            <div class="collapsible-body">
+                <span>{{ mushroom.description }}</span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

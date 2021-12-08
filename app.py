@@ -21,7 +21,14 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('mushrooms.html')
+    return render_template("home.html")
+
+
+@app.route("/map")
+def map():
+    mushroom_collection = mongo.db.mushrooms
+    mushrooms = list(mushroom_collection.find())
+    return render_template("map.html", mushrooms=mushrooms)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -82,15 +89,26 @@ def profile(username):
         {"username": session["user"]})["username"]
     return render_template("profile.html", username=username)
 
+    if session["user"]:
+        return render_template("profile.html", username=username)
+
+    return redirect(url_for("login"))
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
+
+
+@app.route("/manage")
+def manage():
+    return render_template("manage.html")
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
         port=int(os.environ.get("PORT")),
         debug=True)
-
-
-"""
-def get_mushrooms():
-    mushrooms = mongo.db.mushrooms.find()
-    return render_template("mushrooms.html", mushrooms=mushrooms)
-"""

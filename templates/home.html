@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for mushroom in mushroom_all %}
+    {{ mushroom.name }}<br>
+    {{ mushroom.description }}<br>
+    {% endfor %}
+
+{% endblock %}
