@@ -24,12 +24,13 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('map') }}">Foraging Map</a></li>
                     {% if session.user %}
+                        <li><a href="{{ url_for('map_logged_in') }}">Mushroom Map</a></li>
+                        <li><a href="{{ url_for('add_mushroom') }}">Add Entry</a></li>
                         <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                        <li><a href="{{ url_for('manage') }}">Manage</a></li>
                         <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                     {% else %}
+                        <li><a href="{{ url_for('map') }}">Foraging Map</a></li>
                         <li><a href="{{ url_for('register') }}">Register</a></li>
                         <li><a href="{{ url_for('login') }}">Login</a></li>
                     {% endif %}
@@ -39,12 +40,13 @@
 
         <ul class="sidenav" id="mobile-demo">
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('map') }}">Foraging Map</a></li>
             {% if session.user %}
+                <li><a href="{{ url_for('map_logged_in') }}">Mushroom Map</a></li>
+                <li><a href="{{ url_for('add_mushroom') }}">Add Entry</a></li>
                 <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                <li><a href="{{ url_for('manage') }}">Manage</a></li>
                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
             {% else %}
+                <li><a href="{{ url_for('map') }}">Foraging Map</a></li>
                 <li><a href="{{ url_for('register') }}">Register</a></li>
                 <li><a href="{{ url_for('login') }}">Login</a></li>
             {% endif %}

@@ -31,6 +31,13 @@ def map():
     return render_template("map.html", mushrooms=mushrooms)
 
 
+@app.route("/map_logged_in")
+def map_logged_in():
+    mushroom_collection = mongo.db.mushrooms
+    mushrooms = list(mushroom_collection.find())
+    return render_template("map_logged_in.html", mushrooms=mushrooms)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -103,8 +110,8 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/manage", methods=["GET", "POST"])
-def manage():
+@app.route("/add_mushroom", methods=["GET", "POST"])
+def add_mushroom():
     if request.method == "POST":
         mushroom = {
             "name": request.form.get("name"),
@@ -116,9 +123,15 @@ def manage():
         }
         mongo.db.mushrooms.insert_one(mushroom)
         flash("Mushroom Successfully Added")
-        return redirect(url_for("manage"))
+        return redirect(url_for("add_mushroom"))
 
-    return render_template("manage.html")
+    return render_template("add_mushroom.html")
+
+
+@app.route("/edit_mushroom/<mushroom_id>", methods=["GET", "POST"])
+def edit_mushroom(mushroom_id):
+    task = mongo.db.tasks.find_one({"_id": ObjectId(mushroom_id)})
+    return render_template("edit_mushroom.html", task=task, categories=categories)
 
 
 if __name__ == "__main__":
