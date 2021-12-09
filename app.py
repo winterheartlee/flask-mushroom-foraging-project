@@ -103,8 +103,21 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/manage")
+@app.route("/manage", methods=["GET", "POST"])
 def manage():
+    if request.method == "POST":
+        mushroom = {
+            "name": request.form.get("name"),
+            "image_url": request.form.get("image_url"),
+            "description": request.form.get("description"),
+            "edible": request.form.get("edible"),
+            "fruiting": request.form.get("fruiting"),
+            "created_by": session["user"]
+        }
+        mongo.db.mushrooms.insert_one(mushroom)
+        flash("Mushroom Successfully Added")
+        return redirect(url_for("manage"))
+
     return render_template("manage.html")
 
 

@@ -1,45 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h2>Add Mushroom</h2>
-    <div class="row card-panel grey lighten-5">
-        <form class="col s12" method="POST" action="">
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">travel_explore</i>
-                    <input id="name" name="name" type="text" class="validate" required>
-                    <label for="name">Mushroom Name</label>
-                </div>
+<h2>Add Mushroom to Database</h2>
+<div class="row card-panel grey lighten-5">
+    <form class="col s12" method="POST" action="{{ url_for('manage') }}">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">travel_explore</i>
+                <input id="name" name="name" type="text" class="validate" required>
+                <label for="name">Mushroom Name</label>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">link</i>
-                    <input id="image_url" name="image_url" type="text" class="validate" required>
-                    <label for="image_url">Image URL</label>
-                </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">link</i>
+                <input id="image_url" name="image_url" type="text" class="validate" required>
+                <label for="image_url">Image URL</label>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">notes</i>
-                    <textarea id="description" name="description" maxlength="400" class="materialize-textarea validate" required></textarea>
-                    <label for="description">Description</label>
-                </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">notes</i>
+                <textarea id="description" name="description" maxlength="400" class="materialize-textarea validate"
+                    required></textarea>
+                <label for="description">Description</label>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">restaurant</i>
-                    <input id="edible" name="edible" type="text" class="validate" required>
-                    <label for="edible">Edible?</label>
-                </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">restaurant</i>
+                <select id="edible" name="edible" class="validate" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Unknown">Unknown</option>
+                </select>
+                <label for="edible">Edible?</label>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">date_range</i>
-                    <input id="fruiting" name="fruiting" type="text" class="validate" required>
-                    <label for="fruiting">Fruiting Season</label>
-                </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">date_range</i>
+                <input id="fruiting" name="fruiting" type="text" class="validate" required>
+                <label for="fruiting">Fruiting Season</label>
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                <button class="btn waves-effect waves-light" type="submit">Add Mushroom
+                    <i class="material-icons right">add</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 
 {% endblock %}
