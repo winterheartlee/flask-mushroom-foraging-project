@@ -130,8 +130,20 @@ def add_mushroom():
 
 @app.route("/edit_mushroom/<mushroom_id>", methods=["GET", "POST"])
 def edit_mushroom(mushroom_id):
-    task = mongo.db.tasks.find_one({"_id": ObjectId(mushroom_id)})
-    return render_template("edit_mushroom.html", task=task, categories=categories)
+    if request.method == "POST":
+        submit = {
+            "name": request.form.get("name"),
+            "image_url": request.form.get("image_url"),
+            "description": request.form.get("description"),
+            "edible": request.form.get("edible"),
+            "fruiting": request.form.get("fruiting"),
+            "created_by": session["user"]
+        }
+        mongo.db.mushrooms.update({"_id": ObjectId(mushroom_id)}, submit)
+        flash("Mushroom Successfully Edited")
+
+    mushroom = mongo.db.mushrooms.find_one({"_id": ObjectId(mushroom_id)})
+    return render_template("edit_mushroom.html", mushroom=mushroom)
 
 
 if __name__ == "__main__":
