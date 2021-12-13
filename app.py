@@ -146,6 +146,13 @@ def edit_mushroom(mushroom_id):
     return render_template("edit_mushroom.html", mushroom=mushroom)
 
 
+@app.route("/delete_mushroom/<mushroom_id>")
+def delete_mushroom(mushroom_id):
+    mongo.db.mushrooms.remove({"_id": ObjectId(mushroom_id)})
+    flash("Entry Successfully Deleted")
+    return redirect(url_for("map"))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
         port=int(os.environ.get("PORT")),
