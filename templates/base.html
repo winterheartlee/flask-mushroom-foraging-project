@@ -9,6 +9,10 @@
         type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }} " type="text/css">
+    <!-- Takes geo variable from map function and inserts into geo variable in Google Maps JS function -->
+    <script>
+        let locationsjs = '{{ locations }}';
+      </script>
     {% block styles %}
     {% endblock %}
 
@@ -21,7 +25,7 @@
         <nav>
             <div class="nav-wrapper brown">
                 <span><img src="static/images/mushroom.png" width="40px" height="40px" class="logo-image"></span>
-                <a href="#!" class="brand-logo logo">Mushroom Hunter</a>
+                <a href="#!" class="brand-logo logo">Fungi Finder</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
@@ -73,11 +77,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhT3Q5y5GrRq38uxPU2KcR4TvA3ksgx6Y&callback=initMap&v=weekly"
         async></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {% block scripts %}
     {% endblock %}
 </body>

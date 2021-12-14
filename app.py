@@ -1,4 +1,5 @@
 import os
+import json
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -21,7 +22,9 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    location_collection = mongo.db.locations
+    locations = location_collection.find()
+    return render_template("home.html", locations=locations)
 
 
 @app.route("/map")
@@ -29,13 +32,6 @@ def map():
     mushroom_collection = mongo.db.mushrooms
     mushrooms = list(mushroom_collection.find())
     return render_template("map.html", mushrooms=mushrooms)
-
-
-@app.route("/map_logged_in")
-def map_logged_in():
-    mushroom_collection = mongo.db.mushrooms
-    mushrooms = list(mushroom_collection.find())
-    return render_template("map_logged_in.html", mushrooms=mushrooms)
 
 
 @app.route("/register", methods=["GET", "POST"])

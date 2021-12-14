@@ -50,15 +50,32 @@ $(document).ready(function () {
 // Initialize and add the map
 function initMap() {
     // The location of South Wales
-    const southWales = { lat: 51.67079564656212, lng: -3.441466453278682 };
+    const southWales = {
+        lat: 51.67079564656212,
+        lng: -3.441466453278682
+    };
     // The map, centered at South Wales
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 9,
-      center: southWales,
+        zoom: 9,
+        center: southWales,
     });
     // The marker, positioned in South Wales
     // const marker = new google.maps.Marker({
-      // position: southWales,
-      // map: map,
+    // position: southWales,
+    // map: map,
     // });
-  }
+    // map.data.loadGeoJson(
+    //    "https://storage.googleapis.com/mapsdevsite/json/google.json"
+    // );
+    // let temp = "https://storage.googleapis.com/mapsdevsite/json/google.json"
+    delete locationsjs['_id'];
+
+    map.data.addGeoJson(locationsjs);
+    console.log(jsonLocations)
+}
+
+
+// var temp = mongo.db.collection("locations").find({});
+// console.log(temp)
+
+// map.data.loadGeoJson('temp');

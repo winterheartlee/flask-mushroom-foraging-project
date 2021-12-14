@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-    
+    {% for location in locations %}
+        {{ location }}
+    {% endfor %}
+    <div class="col s12">
+        <div id="map"></div>
+    </div>
 
 {% endblock %}
