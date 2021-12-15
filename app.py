@@ -23,14 +23,26 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     locations = list(mongo.db.locations.find())
-    locationsJson = json.dumps(locations)
-    return render_template("home.html", locationsJson=locationsJson)
+    locations_maps_array = []
+    for location in locations:
+        name = location.get('name')
+        lat = location.get('lat')
+        lng = location.get('lng')
+        locations_maps_array.append([name, lat, lng])
+    return render_template("map.html", locations=locations, locations_maps_array=locations_maps_array)
 
 
 @app.route("/map")
 def map():
     mushrooms = list(mongo.db.mushrooms.find())
-    return render_template("map.html", mushrooms=mushrooms)
+    locations = list(mongo.db.locations.find())
+    locations_maps_array = []
+    for location in locations:
+        name = location.get('name')
+        lat = location.get('lat')
+        lng = location.get('lng')
+        locations_maps_array.append([name, lat, lng])
+    return render_template("map.html", locations=locations, locations_maps_array=locations_maps_array, mushrooms=mushrooms)
 
 
 @app.route("/register", methods=["GET", "POST"])
