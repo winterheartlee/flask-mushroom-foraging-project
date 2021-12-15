@@ -22,15 +22,14 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-    location_collection = mongo.db.locations
-    locations = location_collection.find()
-    return render_template("home.html", locations=locations)
+    locations = list(mongo.db.locations.find())
+    locationsJson = json.dumps(locations)
+    return render_template("home.html", locationsJson=locationsJson)
 
 
 @app.route("/map")
 def map():
-    mushroom_collection = mongo.db.mushrooms
-    mushrooms = list(mushroom_collection.find())
+    mushrooms = list(mongo.db.mushrooms.find())
     return render_template("map.html", mushrooms=mushrooms)
 
 

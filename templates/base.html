@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }} " type="text/css">
     <!-- Takes geo variable from map function and inserts into geo variable in Google Maps JS function -->
     <script>
-        let locationsjs = '{{ locations }}';
+        let locations = '{{ locationsJson }}';
       </script>
     {% block styles %}
     {% endblock %}

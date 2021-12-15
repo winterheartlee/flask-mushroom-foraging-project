@@ -68,10 +68,10 @@ function initMap() {
     //    "https://storage.googleapis.com/mapsdevsite/json/google.json"
     // );
     // let temp = "https://storage.googleapis.com/mapsdevsite/json/google.json"
-    delete locationsjs['_id'];
-
-    map.data.addGeoJson(locationsjs);
-    console.log(jsonLocations)
+    // delete locationsjs['_id'];
+    
+    map.data.addGeoJson(locations);
+    
 }
 
 
