@@ -38,7 +38,9 @@ def map():
         lng = location.get('lng')
         locations_maps_array.append([name, lat, lng])
 
-    return render_template("map.html", locations=locations, locations_maps_array=locations_maps_array, mushrooms=mushrooms)
+    return render_template(
+        "map.html", locations=locations,
+        locations_maps_array=locations_maps_array, mushrooms=mushrooms)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -74,10 +76,10 @@ def login():
 
         if existing_user:
             # ensure hashed password matches user input
-            if check_password_hash(
-                existing_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    return redirect(url_for("map", username=session["user"]))
+            if check_password_hash(existing_user["password"], request.form.get(
+                    "password")):
+                session["user"] = request.form.get("username").lower()
+                return redirect(url_for("map", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -131,6 +133,7 @@ def add_location():
 
     return render_template("add_location.html")
 
+
 @app.route("/edit_mushroom/<mushroom_id>", methods=["GET", "POST"])
 def edit_mushroom(mushroom_id):
     if request.method == "POST":
@@ -159,5 +162,5 @@ def delete_mushroom(mushroom_id):
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-        port=int(os.environ.get("PORT")),
-        debug=True)
+            port=int(os.environ.get("PORT")),
+            debug=True)
