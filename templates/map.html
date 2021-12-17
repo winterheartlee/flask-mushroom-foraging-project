@@ -1,40 +1,87 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="col s12">
-    <div id="map"></div>
+    <h4>Select Marker and press 'Enter':</h4>
+    <div id="map">
+    </div>
 </div>
 
-<div class="row">
-    {% for mushroom in mushrooms %}
-    <div class="col s12 m6 l4">
-        <div class="card">
-            <div class="card-image">
-                <a href='{{ mushroom.image_url }}' target="_blank"><img src='{{ mushroom.image_url }}'
-                        class="mushroom-image"></a>
-                <span class="card-title">{{ mushroom.name }}</span>
-            </div>
-            <div class="card-content">
-                <p class="card-bold">Description:</p>
-                <p>{{ mushroom.description }}</p>
-                <br>
-                <p class="card-bold">Is it edible?</p>
-                <p>{{ mushroom.edible }}</p>
-                <br>
-                <p class="card-bold">Fruiting season:</p>
-                <p>{{ mushroom.fruiting }}</p>
-            </div>
-            <div class="card-edit-buttons">
-                {% if session.user %}
-                <a href="{{ url_for('edit_mushroom', mushroom_id=mushroom._id) }}"
-                    class="waves-effect waves-light btn-small">Edit</a>
-                <a href="{{ url_for('delete_mushroom', mushroom_id=mushroom._id) }}"
-                    class="waves-effect waves-light btn-small red">Delete</a>
-                {% endif %}
-                <em class="created-by">Created by: {{ mushroom.created_by }}</em>
-            </div>
-        </div>
+<div id="mushroom-list">
+    <div class="input-field col s6">
+        <i class="material-icons prefix">search</i>
+        <textarea id="output" class="materialize-textarea fuzzy-search"></textarea>
     </div>
-    {% endfor %}
+    <ul class="list">
+        {% for mushroom in mushrooms %}
+        {% if loop.index % 2 != 0 %}
+        <li>
+            <div class="card">
+                <div class="row">
+                    <div class="card-image col s12 m6">
+                        <p class="hidden-search-field">{{ mushroom.found_at }}</p>
+                        <a href='{{ mushroom.image_url }}' target="_blank"><img src='{{ mushroom.image_url }}'
+                                class="mushroom-image"></a>
+                        <div class="card-title" style="font-size: 2.5rem; background-color: black;">{{ mushroom.name }}
+                        </div>
+                    </div>
+                    <div class="card-content col s12 m6 right-align">
+                        <p class="card-bold">Description:</p>
+                        <p>{{ mushroom.description }}</p>
+                        <br>
+                        <p class="card-bold">Is it edible?</p>
+                        <p>{{ mushroom.edible }}</p>
+                        <br>
+                        <p class="card-bold">Fruiting season:</p>
+                        <p>{{ mushroom.fruiting }}</p>
+                        <br>
+                        {% if session.user %}
+                        <a href="{{ url_for('edit_mushroom', mushroom_id=mushroom._id) }}"
+                            class="waves-effect waves-light btn-small">Edit</a>
+                        <a href="{{ url_for('delete_mushroom', mushroom_id=mushroom._id) }}"
+                            class="waves-effect waves-light btn-small red">Delete</a>
+                        {% endif %}
+                        <em class="created-by">Created by: {{ mushroom.created_by }}</em>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% else %}
+        <li>
+            <div class="card">
+                <div class="row">
+                    <div class="card-content col s12 m6">
+                        <p class="hidden-search-field">{{ mushroom.found_at }}</p>
+                        <p class="card-bold">Description:</p>
+                        <p>{{ mushroom.description }}</p>
+                        <br>
+                        <p class="card-bold">Is it edible?</p>
+                        <p>{{ mushroom.edible }}</p>
+                        <br>
+                        <p class="card-bold">Fruiting season:</p>
+                        <p>{{ mushroom.fruiting }}</p>
+                        <br>
+                        {% if session.user %}
+                        <a href="{{ url_for('edit_mushroom', mushroom_id=mushroom._id) }}"
+                            class="waves-effect waves-light btn-small">Edit</a>
+                        <a href="{{ url_for('delete_mushroom', mushroom_id=mushroom._id) }}"
+                            class="waves-effect waves-light btn-small red">Delete</a>
+                        {% endif %}
+                        <em class="created-by">Created by: {{ mushroom.created_by }}</em>
+                    </div>
+                    <div class="card-image col s12 m6">
+                        <a href='{{ mushroom.image_url }}' target="_blank"><img src='{{ mushroom.image_url }}'
+                                class="mushroom-image"></a>
+                        <div class="card-title" style="font-size: 2.5rem; background-color: black;">{{ mushroom.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% endif %}
+
+        {% endfor %}
+    </ul>
 </div>
 
 {% endblock %}

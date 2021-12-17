@@ -1,8 +1,9 @@
 import os
 import json
+import sys
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, request, jsonify)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -22,26 +23,22 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-    locations = list(mongo.db.locations.find())
-    locations_maps_array = []
-    for location in locations:
-        name = location.get('name')
-        lat = location.get('lat')
-        lng = location.get('lng')
-        locations_maps_array.append([name, lat, lng])
-    return render_template("map.html", locations=locations, locations_maps_array=locations_maps_array)
+    return render_template("home.html")
 
 
 @app.route("/map")
 def map():
     mushrooms = list(mongo.db.mushrooms.find())
     locations = list(mongo.db.locations.find())
+
     locations_maps_array = []
     for location in locations:
         name = location.get('name')
         lat = location.get('lat')
         lng = location.get('lng')
-        locations_maps_array.append([name, lat, lng])
+        id = location.get('_id')
+        locations_maps_array.append([name, lat, lng, id])
+
     return render_template("map.html", locations=locations, locations_maps_array=locations_maps_array, mushrooms=mushrooms)
 
 
@@ -81,8 +78,7 @@ def login():
             if check_password_hash(
                 existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(request.form.get("username")))
-                    return redirect(url_for("profile", username=session["user"]))
+                    return redirect(url_for("map", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -94,19 +90,6 @@ def login():
             return redirect(url_for("login"))
 
     return render_template("login.html")
-
-
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    return render_template("profile.html", username=username)
-
-    if session["user"]:
-        return render_template("profile.html", username=username)
-
-    return redirect(url_for("login"))
 
 
 @app.route("/logout")
@@ -158,6 +141,14 @@ def delete_mushroom(mushroom_id):
     mongo.db.mushrooms.remove({"_id": ObjectId(mushroom_id)})
     flash("Entry Successfully Deleted")
     return redirect(url_for("map"))
+
+
+@app.route('/_get_post_json/', methods=['POST'])
+def get_post_json():    
+    data = request.get_json()
+    return jsonify(status="success", data=data)
+    return render_template("test.html", data=data)
+
 
 
 if __name__ == "__main__":

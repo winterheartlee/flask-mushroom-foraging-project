@@ -46,13 +46,7 @@ $(document).ready(function () {
     }
 });
 
-
-
-
-
-
-
-
-
-
+var monkeyList = new List('mushroom-list', {
+    valueNames: ['hidden-search-field']
+});
 

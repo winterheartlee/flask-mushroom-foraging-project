@@ -1,7 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
-
-    {{ locations_maps_array }}
-    
-
+<div class="welcome-banner">
+    <h1>Welcome to Fungi Finders...</h1>
+</div>
+<div>
+    <img src="static/images/mushroom-hero.jpg" class="hero-img">
+</div>
+<div>
+    <h4>About</h4>
+</div>
+<div class="row">
+    <div class="col s12">
+        <div class="about-text">Fingi Finders was setup to create an interactive community of mushroom enthusiasts who
+            love to explore the
+            wilderness around them in a hunt to discover the thousands of fungal species that grow beneath our feet.
+            The objective of the community is to unearth the various fruits of the mycelial colonies, identify them and
+            document them on the Fingi Finders database for others to be able to explore and learn. Registered community
+            members are able to add geographical locations along with information about mushrooms that have been found
+            in these spots. The community is currently focused on the South Wales and West area, but the website will be
+            expanded upon to enable people from all around the world to document their own home grown mushroom friends.
+            So whether you're foraging with intent to eat or just want to learn more about the fantastic
+            world of fungi, head over to our mushroom map and let the treasure hunt begin!
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m4 icon-text">
+        <p>Explore.</p>
+        <p class="icons"><i class="fas fa-hiking"></i></p>
+    </div>
+    <div class="col s12 m4 icon-text">
+        <p>Discover.</p>
+        <p class="icons"><i class="fas fa-search-location"></i></p>
+    </div>
+    <div class="col s12 m4 icon-text">
+        <p>Contribute.</p>
+        <p class="icons"><i class="fab fa-slideshare"></i></p>
+    </div>
+</div>
 {% endblock %}
