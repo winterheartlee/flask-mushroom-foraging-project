@@ -29,12 +29,7 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">restaurant</i>
-                <select id="edible" name="edible" class="validate" required>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                    <option value="Unknown">Unknown</option>
-                </select>
+                <input id="edible" name="edible" type="text" class="validate" value="{{ mushroom.edible }}" required>
                 <label for="edible">Edible?</label>
             </div>
         </div>
@@ -43,6 +38,13 @@
                 <i class="material-icons prefix">date_range</i>
                 <input id="fruiting" name="fruiting" type="text" class="validate" required>
                 <label for="fruiting">Fruiting Season</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">place</i>
+                <input id="found_at" name="found_at" type="text" value="{{ mushroom.found_at }}" class="validate" required>
+                <label for="found_at">Found at</label>
             </div>
         </div>
         <div class="row">

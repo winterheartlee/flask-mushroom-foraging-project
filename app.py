@@ -33,11 +33,10 @@ def map():
 
     locations_maps_array = []
     for location in locations:
-        name = location.get('name')
+        name = location.get('location_name')
         lat = location.get('lat')
         lng = location.get('lng')
-        id = location.get('_id')
-        locations_maps_array.append([name, lat, lng, id])
+        locations_maps_array.append([name, lat, lng])
 
     return render_template("map.html", locations=locations, locations_maps_array=locations_maps_array, mushrooms=mushrooms)
 
@@ -94,7 +93,6 @@ def login():
 
 @app.route("/logout")
 def logout():
-    # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
@@ -109,7 +107,8 @@ def add_mushroom():
             "description": request.form.get("description"),
             "edible": request.form.get("edible"),
             "fruiting": request.form.get("fruiting"),
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "found_at": request.form.get("found_at")
         }
         mongo.db.mushrooms.insert_one(mushroom)
         flash("Mushroom Successfully Added")
@@ -117,6 +116,20 @@ def add_mushroom():
 
     return render_template("add_mushroom.html")
 
+
+@app.route("/add_location", methods=["GET", "POST"])
+def add_location():
+    if request.method == "POST":
+        location = {
+            "location_name": request.form.get("location_name"),
+            "lat": request.form.get("lat"),
+            "lng": request.form.get("lng"),
+        }
+        mongo.db.locations.insert_one(location)
+        flash("Location Marker Successfully Added")
+        return redirect(url_for("add_location"))
+
+    return render_template("add_location.html")
 
 @app.route("/edit_mushroom/<mushroom_id>", methods=["GET", "POST"])
 def edit_mushroom(mushroom_id):
@@ -127,7 +140,8 @@ def edit_mushroom(mushroom_id):
             "description": request.form.get("description"),
             "edible": request.form.get("edible"),
             "fruiting": request.form.get("fruiting"),
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "found_at": request.form.get("found_at")
         }
         mongo.db.mushrooms.update({"_id": ObjectId(mushroom_id)}, submit)
         flash("Mushroom Successfully Edited")
@@ -141,14 +155,6 @@ def delete_mushroom(mushroom_id):
     mongo.db.mushrooms.remove({"_id": ObjectId(mushroom_id)})
     flash("Entry Successfully Deleted")
     return redirect(url_for("map"))
-
-
-@app.route('/_get_post_json/', methods=['POST'])
-def get_post_json():    
-    data = request.get_json()
-    return jsonify(status="success", data=data)
-    return render_template("test.html", data=data)
-
 
 
 if __name__ == "__main__":

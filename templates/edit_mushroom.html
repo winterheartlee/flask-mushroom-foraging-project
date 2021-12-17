@@ -31,12 +31,7 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">restaurant</i>
-                <select id="edible" name="edible" class="validate" required>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                    <option value="Unknown">Unknown</option>
-                </select>
+                <input id="edible" name="edible" type="text" class="validate" value="{{ mushroom.edible }}" required>
                 <label for="edible">Edible?</label>
             </div>
         </div>
@@ -48,11 +43,18 @@
             </div>
         </div>
         <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">place</i>
+                <input id="found_at" name="found_at" type="text" value="{{ mushroom.found_at }}" class="validate" required>
+                <label for="found_at">Found at</label>
+            </div>
+        </div>
+        <div class="row">
             <div class="col s12 center-align">
                 <button class="btn waves-effect waves-light" type="submit">Edit Mushroom
                     <i class="material-icons right">edit</i>
                 </button>
-                <a href="{{ url_for('map_logged_in') }}" class="btn red">
+                <a href="{{ url_for('map') }}" class="btn red">
                     Cancel <i class="material-icons right">cancel</i>
                 </a>
             </div>

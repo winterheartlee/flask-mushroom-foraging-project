@@ -30,7 +30,8 @@
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="{{ url_for('map') }}">Mushroom Map</a></li>
                     {% if session.user %}
-                    <li><a href="{{ url_for('add_mushroom') }}">Add Entry</a></li>
+                    <li><a href="{{ url_for('add_mushroom') }}">Add Mushroom</a></li>
+                    <li><a href="{{ url_for('add_location') }}">Add Location</a></li>
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('register') }}">Register</a></li>
@@ -44,7 +45,8 @@
             <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('map') }}">Mushroom Map</a></li>
             {% if session.user %}
-            <li><a href="{{ url_for('add_mushroom') }}">Add Entry</a></li>
+            <li><a href="{{ url_for('add_mushroom') }}">Add Mushroom</a></li>
+            <li><a href="{{ url_for('add_location') }}">Add Location</a></li>
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
             {% else %}
             <li><a href="{{ url_for('register') }}">Register</a></li>
