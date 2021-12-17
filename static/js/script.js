@@ -4,6 +4,7 @@ $(document).ready(function () {
     $(".tooltipped").tooltip();
     $("select").formSelect();
 
+// This function was given in the Code Institute learning materials to fix a bug with Materialize CSS
     validateMaterializeSelect();
 
     function validateMaterializeSelect() {
@@ -46,6 +47,7 @@ $(document).ready(function () {
     }
 });
 
+// list.js code
 var monkeyList = new List('mushroom-list', {
     valueNames: ['hidden-search-field']
 });

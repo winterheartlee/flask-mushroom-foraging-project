@@ -1,9 +1,14 @@
-# Simploice - Simple Free Invoicing
+# Fungi Finders - Mushroom Location Map & Database
 
-Simploice was created as a simple way to create and save or print invoices for small businesses and sole traders without the need for expensive comprehensive subcription based software or services, and with a more intuitive editing approach than using a MS Word template.
+Fungi Finders was created to allow people who are interested in foraging or learning about mushrooms to have a resource that allows them to plan outdoor visits to locations where mushrooms have been reported by other users. The idea is that a community of fungi lovers could build and share a single database of where to find particular mushrooms and basic information on how to identify mushrooms that may be stumbled up in nature, based on location.
+<br>
+This project was built using Flask and Python for the backend control and MongoDB for storing and querying the data.
+<br>
+<br>
+### <b>IMPORTANT NOTE: The locations and mushroom information added to this website at this time IS NOT accurate and has simply been used to fill out the website content and demonstate its features.</b>
+<br>
 
-
-![Generated Invoice Example](assets/images/invoice-example.png)
+![Screenshot of Map page](static/images/map-page-example.png)
 
 ## Wireframe:
 - Wireframe was created using Balsamiq.
@@ -13,64 +18,66 @@ Simploice was created as a simple way to create and save or print invoices for s
 
 ## Features 
 
-I wanted this website to just offer a simple invoice design with built-in calculations to assist with cost totalling and invoice saving and printing.
+This site offers non-registered users a map of location markers that have been reported by other users shows what mushrooms can be found at those locations once they click on a Google Maps marker. Once the user registers and logs in, they are able to edit and delete mushroom entries and add location markers to the map, however there are some important features to making this site fully functional that are still left to implement.
 
-### Features Left to Implement
+### Features Left to Implement:
 
-- Add an 'About' and 'Contact' page so users can understand the reason for the service and also get in touch to offer development suggestions.
-- Create a customer login account with the ability to save and recall invoices.
-- Use Bootstap to create a dynamic layout for mobile; since the idea of this site is to present an invoice design on an A4 sheet of paper, the dynamic layout would need to be completely changed from an A4 fixed layout to a long and narrow list of fields that can later be printed to the A4 page layout.
-- Remove 15 row item limit and create multi-page invoice.
-- Add ability to e-mail invoice straight to client from invoice page.
+- Currently, the user can add a location marker and add a mushroom to the database, however they are unable to add reported locations to the mushroom entries successfully; the location names are being stored inside each mushroom entry as a list array, but I had difficulty formatting a way to populate and add new items to the array in MongoDB.
+- The Google Maps API uses Javascript for control and when a marker is clicked, I could not figure out how to send the Javascript frontend event back to the Flask backend to fetch and dynamically build the required data from MongoDB. As a work around for now, I used the Javascript Library 'listJS' to add search functionality for an unordered list, so the mushroom lists are not being dynamically created from MongoDB, but rather ALL the mushroom entries are being dynamically loaded by default and then listJS is being used to hide non-relevant entries. This functionality with MongoDB will eventually replace the need for listJS.
+- Other features such as being able to sort the lists alphabetically, autofill location names based on currently stored locations, and eventually have an option to REVERSE the functionality so that selecting a specific mushroom can plot ALL the markers associated with only that mushroom on the Google Map, so you could specifically find a mushroom you are looking for and all the locations where it grows.
+
 
 ## Testing 
 
-Chrome was used to create this website and it is only currently functioning as should on Chrome. Safari and Firefox have been tested but have slight layout indescrepencies with the textarea tag widths; cross-browser compatibility will be improved in the future. Chrome dev tools were used to test the site and chase and monitor the javascript code to fix bugs.
+Chrome was used to create this website and it is only FULLY currently functioning as should on Chrome. Safari and Firefox have been tested there is an error with the Google Maps API; once the error has been closed the map still functions as it should but displays that it is 'for development purposes only'.
+
+![Screenshot of Map page](static/images/google-maps-error.png)
 
 
 ### Validator Testing 
 
-- HTML - [W3C Validator](http://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fwinterheartlee.github.io%2Fleehouseinvoicegen%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=)
+- HTML - [W3C Validator](https://validator.w3.org/nu/?doc=http%3A%2F%2Fflask-mushroom-forager-project.herokuapp.com%2F)
   - The site currently has no errors from the W3C Validator.
-- CSS - [Jigsaw Validator](http://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fwinterheartlee.github.io%2Fleehouseinvoicegen%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=)
-  - No errors were found when passing through the official W3C Jigsaw validator.
+- CSS - [Jigsaw Validator](https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fflask-mushroom-forager-project.herokuapp.com%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+  - No errors were found with custom CSS however there is an error inside the Materialize Library CSS.
 - Javascript - [Jshint](https://jshint.com/) 
   - No serious issues were detected when passed through the Jshint validator.
+- Python PEP8 Compliant - [PEP8 Online](http://pep8online.com/) 
+  - No errors detected and is PEP8 compliant.
 
 ### Unfixed Bugs
 
-- Once an image has been added to the logo area, the 'upload' button is removed so that it does not show on the printed invoice, however there is no way to then change the image without refreshing.
-- The 'Amount' and 'Grand Total' calculations can sometimes display as long float numbers with very long decimal places; I tried to force the results to always display to a double float using <b>parseFloat().toFixed(2)</b>, however I was unable to successfully implement it to prevent long float numbers.
-- The first item/product of the invoice list does not trigger the calculation for 'Amount' and 'Grand Total' until the second row received a KeyUp.
+- As previously mentioned, adding locations to the mushroom entries does not work as intended as they need to be added into an array; currently you can add a location and it will be stored as a string instead of an array, but this is not suitable for the intended advanced use.
+- When navigating to the 'edit_mushroom.html' page, it populates the 'found at" locations as a list array converted to a string with array brackets, and then destroys the MongoDB entry array format for 'found at.
+- An unknown issue with the Google Maps API is causing an error in Safari and Firefox.
 
 
 ## Deployment
 
-This site has been deployed using GitHub pages, the live link can be found here - https://winterheartlee.github.io/leehouseinvoicegen/
+This site has been deployed using Heroku, the live link can be found here - http://flask-mushroom-forager-project.herokuapp.com/
 
 
 ## Credits 
 
-The programming languages used were HTML5, CSS3 and Javascript.
+- The programming languages used were HTML5, CSS3, Python and Javascript.
+- The core Flask and PyMongo setup configuration coding was given in the Code Institute learning materials and modified to suit.
 
 ### Frameworks, Libraries and Programs:
 
-1. [Bootstrap 5:](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
+1. [Materialize CSS:](https://materializecss.com/)
     - Bootstrap was used mainly for its grid system to create the layout.
 1. [Google Fonts:](https://fonts.google.com/)
-    - Google fonts were used to import the 'Roboto' font for all the text on the invoice and the 'Lobster' font was used for the Simploice logo in the sidebar navigation.
+    - Google fonts were used to import the 'Questrial' font for most of the body text on the site and the 'Poppins' font was used for bold text items.
 1. [Font Awesome:](https://fontawesome.com/)
-    - Simploice sidebar receipt icon was used.
+    - Home page icons loaded from Font Awesome.
 1. [GitPod](https://www.gitpod.io/)
     - GitPod was the IDE used to create the code.
 1. [GitHub:](https://github.com/)
     - GitHub is used to store the projects code after being pushed from GitPod.
+1. [List.js:](https://listjs.com/)
+    - List.js was used to hide and reveal mushroom entries based on marker clicks.
+
 
 ### Media:
 
-- Background images are random embedded photographs from [Upsplash](https://unsplash.com/photos/OQlPahHa7Bc) using the free link at https://source.unsplash.com
-
-### Javascript Code:
-
-- The javascript code needed to print the styled content of the invoice div proved to be beyond my ability to develop and therefore the full code was used from [JS Fiddle](https://jsfiddle.net/crabbly/gqjqh1gn/) and was created by user [Rodrigo Vieira](https://github.com/crabbly).
-- The javascript code needed to upload and display as user image file was too difficult to implement by myself and therefore the code was amended from [JS Fiddle](https://jsfiddle.net/rustybailey/2b7dD/) and was created by user [Rusty Bailey](https://github.com/rustybailey).
+- Hero image on home page was downloaded from [Pexels](https://www.pexels.com/photo/forest-fungus-landscape-moss-361186/)
