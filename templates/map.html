@@ -21,7 +21,7 @@
                     <div class="card-image col s12 m6">
                         <p class="hidden-search-field">{{ mushroom.found_at }}</p>
                         <a href='{{ mushroom.image_url }}' target="_blank"><img src='{{ mushroom.image_url }}'
-                                class="mushroom-image"></a>
+                                class="mushroom-image" alt="{{ mushroom.name }} photograph"></a>
                         <div class="card-title" style="font-size: 2.5rem; background-color: black;">{{ mushroom.name }}
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="card-image col s12 m6">
                         <a href='{{ mushroom.image_url }}' target="_blank"><img src='{{ mushroom.image_url }}'
-                                class="mushroom-image"></a>
+                                class="mushroom-image" alt="{{ mushroom.name }} photograph"></a>
                         <div class="card-title" style="font-size: 2.5rem; background-color: black;">{{ mushroom.name }}
                         </div>
                     </div>
